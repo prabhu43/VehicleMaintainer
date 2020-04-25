@@ -18,7 +18,11 @@ export default class MyVehicles extends React.Component {
                     <TouchableOpacity
                         activeOpacity={0.7}
                         style={styles.TouchableOpacityStyle}
-                        onPress={() => console.log("Add new vehicle")}
+                        onPress={() => {
+                            console.log("Navigate to AddVehicle!");
+                            this.props.navigation.navigate("AddVehicle")
+                        }
+                        }
                     >
                         <Image
                             //We are making FAB using TouchableOpacity with an image
