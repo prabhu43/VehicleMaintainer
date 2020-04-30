@@ -8,12 +8,15 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import MyVehicles from "./components/MyVehicles";
 import AddVehicle from "./components/AddVehicle";
+import Realm from 'realm';
+let realm;
 
 const Stack = createStackNavigator();
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
+        realm = new Realm({ path: 'VehicleMaintainerDB.realm' });
     }
 
     render() {
