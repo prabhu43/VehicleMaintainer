@@ -1,0 +1,76 @@
+[
+  {
+    "make": "Honda",
+    "models": [
+      {
+        "name": "Activa",
+        "variants": [
+          {
+            "name": "Activa STD"
+          },
+          {
+            "name": "Activa Deluxe"
+          }
+        ]
+      },
+      {
+        "name": "Hornet",
+        "variants": [
+          {
+            "name": "Hornet STD"
+          },
+          {
+            "name": "Hornet ABS"
+          },
+          {
+            "name": "Hornet STD ABS"
+          },
+          {
+            "name": "Hornet ABS DLX"
+          }
+        ]
+      },
+      {
+        "name": "X Blade",
+        "variants": [
+          {
+            "name": "X Blade ABS"
+          },
+          {
+            "name": "X Blade STD"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "make": "TVS",
+    "models": [
+      {
+        "name": "Apache RTR 160",
+        "variants": [
+          {
+            "name": "Front Disc"
+          },
+          {
+            "name": "Rear Disc"
+          }
+        ]
+      },
+      {
+        "name": "NTORQ",
+        "variants": [
+          {
+            "name": "NTORQ Drum"
+          },
+          {
+            "name": "NTORQ Disc"
+          },
+          {
+            "name": "NTORQ Race Edition"
+          }
+        ]
+      }
+    ]
+  }
+]
