@@ -4,44 +4,74 @@
  */
 
 import React from 'react';
-import {Container, Content, Text} from "native-base";
-import {Image, StyleSheet, TouchableOpacity} from "react-native";
+import {Container} from "native-base";
+import {FlatList, Image, SafeAreaView, StyleSheet, TouchableOpacity} from "react-native";
 import Images from '@assets/images';
+import Realm from "realm";
+import VehicleItem from "./VehicleItem";
 
+let realm;
 
 export default class MyVehicles extends React.Component {
+    constructor(props) {
+        super(props);
+        realm = new Realm({ path: "VehicleMaintainerDB.realm" });
+        this.state = {
+            vehicles: realm.objects("vehicles")
+        };
+
+        this.vehiclesListItems = this.vehiclesListItems.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.navigation.addListener("focus", () => {
+            this.setState({
+                vehicles: realm.objects("vehicles")
+            });
+        });
+    }
+
+    vehiclesListItems() {
+        return this.state.vehicles.map((vehicle) => {
+            let itemKey = vehicle.name.toLowerCase().split(" ").join("");
+            return (<VehicleItem key={itemKey} vehicle={vehicle}/>);
+        });
+    }
+
     render() {
         return (
             <Container>
-                <Content contentContainerStyle={{flexGrow: 1}}>
-                    <Text>Hello world</Text>
+                {/*<View style={{ flex: 1 }}>*/}
+                    <SafeAreaView style={styles.container}>
+                        <FlatList
+                            data={this.state.vehicles}
+                            renderItem={({ item }) => <VehicleItem vehicle={item}/>}
+                            keyExtractor={item => item.name.toLowerCase().split(" ").join("")}
+                        />
                     <TouchableOpacity
                         activeOpacity={0.7}
                         style={styles.TouchableOpacityStyle}
                         onPress={() => {
-                            console.log("Navigate to AddVehicle!");
                             this.props.navigation.navigate("AddVehicle")
                         }
                         }
                     >
                         <Image
-                            //We are making FAB using TouchableOpacity with an image
-                            //We are using online image here
-                            // source={{
-                            //     uri:'https://raw.githubusercontent.com/AboutReact/sampleresource/master/plus_icon.png',
-                            // }}
-                            //You can use you project image Example below
                             source={Images.plusIcon}
                             style={styles.FloatingButtonStyle}
                         />
                     </TouchableOpacity>
-                </Content>
+                    </SafeAreaView>
+                {/*</View>*/}
             </Container>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
     TouchableOpacityStyle: {
         position: 'absolute',
         width: 50,
