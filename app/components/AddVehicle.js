@@ -5,10 +5,12 @@
 
 import React from "react";
 import moment from "moment";
-import {Button, Platform, View} from "react-native";
+import {Button, Platform, View, Alert} from "react-native";
 import BikesJSON from "../testdata/bikes.json";
 import CarsJSON from "../testdata/cars.json"
 import {Container, Content, DatePicker, Icon, Input, Item, Label, Picker} from "native-base";
+import Realm from "realm";
+let realm;
 
 export default class AddVehicle extends React.Component {
     constructor(props) {
@@ -29,6 +31,8 @@ export default class AddVehicle extends React.Component {
             },
             canSubmit: false,
         };
+
+        realm = new Realm({ path: "VehicleMaintainerDB.realm" });
 
         this.getMakes = this.getMakes.bind(this);
         this.getModels = this.getModels.bind(this);
@@ -139,9 +143,9 @@ export default class AddVehicle extends React.Component {
 
     handleChange(name) {
         const executeChange = (value, inputName) => {
-            if (inputName == "purchaseDate") {
-                value = moment(value).format("DD/MM/YYYY")
-            }
+            // if (inputName == "purchaseDate") {
+            //     value = moment(value).format("DD/MM/YYYY")
+            // }
             let newChanges = {
                 [inputName]: value,
             };
@@ -183,6 +187,23 @@ export default class AddVehicle extends React.Component {
 
     handleSubmit() {
         console.log(this.state.selected);
+        realm.write(() => {
+            realm.create('vehicles', this.state.selected)
+        });
+        let that = this;
+        Alert.alert(
+            'Success',
+            'Your vehicle added successfully',
+            [
+                {
+                    text: 'Ok',
+                    onPress: () => that.props.navigation.navigate("MyVehicles"),
+                },
+            ],
+            { cancelable: false }
+        );
+
+
     }
     render() {
         let selected = this.state.selected;
@@ -267,13 +288,13 @@ export default class AddVehicle extends React.Component {
                             <DatePicker
                                 minimumDate={new Date(2000, 1, 1)}
                                 maximumDate={new Date()}
-                                locale={"en"}
                                 modalTransparent={true}
                                 animationType={"fade"}
                                 androidMode={"default"}
                                 placeHolderText="Select date"
                                 placeHolderTextStyle={{color: "lightgrey"}}
                                 onDateChange={this.handleChange("purchaseDate")}
+                                formatChosenDate={(value)=> moment(value).format("DD/MM/YYYY")}
                             />
                         </Item>
 
