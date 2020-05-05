@@ -10,6 +10,7 @@ import MyVehicles from "./components/MyVehicles";
 import AddVehicle from "./components/AddVehicle";
 import Realm from "realm";
 
+console.disableYellowBox = true;
 
 const Stack = createStackNavigator();
 
