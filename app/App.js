@@ -8,6 +8,7 @@ import {createStackNavigator} from "@react-navigation/stack";
 import React from "react";
 import MyVehicles from "./components/MyVehicles";
 import AddVehicle from "./components/AddVehicle";
+import VehicleInfo from "./components/VehicleInfo";
 import Realm from "realm";
 
 console.disableYellowBox = true;
@@ -43,6 +44,10 @@ export default class App extends React.Component {
                 <Stack.Navigator initialRouteName={"MyVehicles"}>
                     <Stack.Screen name="MyVehicles" component={MyVehicles} options={{title: "My Vehicles"}}/>
                     <Stack.Screen name="AddVehicle" component={AddVehicle} options={{title: "Add Vehicle"}}/>
+                    <Stack.Screen name="VehicleInfo"
+                                  component={VehicleInfo}
+                                  options={({ route }) => ({ title: route.params.name })}
+                    />
                 </Stack.Navigator>
 
             </NavigationContainer>

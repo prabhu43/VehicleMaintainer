@@ -15,12 +15,11 @@ let realm;
 export default class MyVehicles extends React.Component {
     constructor(props) {
         super(props);
-        realm = new Realm({ path: "VehicleMaintainerDB.realm" });
+        realm = new Realm({path: "VehicleMaintainerDB.realm"});
         this.state = {
             vehicles: realm.objects("vehicles")
         };
 
-        this.vehiclesListItems = this.vehiclesListItems.bind(this);
     }
 
     componentDidMount() {
@@ -31,23 +30,15 @@ export default class MyVehicles extends React.Component {
         });
     }
 
-    vehiclesListItems() {
-        return this.state.vehicles.map((vehicle) => {
-            let itemKey = vehicle.name.toLowerCase().split(" ").join("");
-            return (<VehicleItem key={itemKey} vehicle={vehicle}/>);
-        });
-    }
-
     render() {
         return (
             <Container>
-                {/*<View style={{ flex: 1 }}>*/}
-                    <SafeAreaView style={styles.container}>
-                        <FlatList
-                            data={this.state.vehicles}
-                            renderItem={({ item }) => <VehicleItem vehicle={item}/>}
-                            keyExtractor={item => item.name.toLowerCase().split(" ").join("")}
-                        />
+                <SafeAreaView style={styles.container}>
+                    <FlatList
+                        data={this.state.vehicles}
+                        renderItem={({item}) => <VehicleItem vehicle={item} navigation={this.props.navigation}/>}
+                        keyExtractor={item => item.name.toLowerCase().split(" ").join("")}
+                    />
                     <TouchableOpacity
                         activeOpacity={0.7}
                         style={styles.TouchableOpacityStyle}
@@ -61,8 +52,7 @@ export default class MyVehicles extends React.Component {
                             style={styles.FloatingButtonStyle}
                         />
                     </TouchableOpacity>
-                    </SafeAreaView>
-                {/*</View>*/}
+                </SafeAreaView>
             </Container>
         )
     }
@@ -86,7 +76,6 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         width: 50,
         height: 50,
-        // backgroundColor:'black'
     },
 });
 

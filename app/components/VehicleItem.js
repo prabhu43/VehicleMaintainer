@@ -4,15 +4,21 @@
  */
 
 import React from 'react';
-import {View, StyleSheet, Image, ImageBackground} from "react-native";
+import {View, StyleSheet, Image, ImageBackground, TouchableHighlight} from "react-native";
 import {Text} from "native-base";
 import Images from '@assets/images';
 
 export default class VehicleItem extends React.Component {
     constructor(props) {
         super(props);
-
+        this.handlePress = this.handlePress.bind(this);
     }
+
+    handlePress() {
+        let vehicleName = this.props.vehicle.name;
+        this.props.navigation.navigate("VehicleInfo", {name: vehicleName});
+    }
+
     render() {
         let {vehicle} = this.props;
         let vehicleName = vehicle.name;
@@ -23,14 +29,14 @@ export default class VehicleItem extends React.Component {
             bgImage = Images.bike
         }
         return (
-            <View style={styles.item}>
+            <TouchableHighlight style={styles.item} underlayColor={"#03b1fc"} onPress={this.handlePress}>
                 <ImageBackground source={bgImage} style={styles.bgImage}>
                     <Text style={styles.title}>{vehicleName}</Text>
                     <Text>{vehicle.make} </Text>
                     <Text>{vehicle.model}</Text>
                     <Text>{vehicle.variant}</Text>
                 </ImageBackground>
-            </View>
+            </TouchableHighlight>
         );
     }
 }

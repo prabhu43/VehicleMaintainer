@@ -186,7 +186,6 @@ export default class AddVehicle extends React.Component {
     }
 
     handleSubmit() {
-        console.log(this.state.selected);
         realm.write(() => {
             realm.create('vehicles', this.state.selected)
         });
@@ -211,7 +210,6 @@ export default class AddVehicle extends React.Component {
 
             <Container>
                 <Content padder>
-
                     <View>
                         <Item>
                             <Label>Name</Label>
