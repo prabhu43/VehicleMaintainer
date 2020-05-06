@@ -20,22 +20,25 @@ export default class VehicleInfo extends React.Component {
     }
 
     handleDelete() {
-        this.setState((prevState) => ({
-            ...prevState,
-            showFAB: !prevState.showFAB
-        }));
         Alert.alert('Delete vehicle', 'Confirm to delete?',
             [
-                {text: 'Confirm', onPress: () => {
-                        console.log("Confirm delete")
-                        // realm.write(() => {
-                        //     realm.delete(this.state.vehicle)
-                        // });
-                        // this.props.navigation.goBack();
-                    }},
-                {text: 'Cancel', onPress: () => console.log("Cancel delete")},
+                {
+                    text: 'Confirm', onPress: () => {
+                        realm.write(() => {
+                            realm.delete(this.state.vehicle)
+                        });
+                        this.props.navigation.goBack();
+                    }
+                },
+                {
+                    text: 'Cancel', onPress: () => {
+                        this.setState((prevState) => ({
+                            ...prevState,
+                            showFAB: !prevState.showFAB
+                        }));
+                    }
+                },
             ],
-            { cancelable: false},
         )
     }
 
@@ -80,20 +83,26 @@ export default class VehicleInfo extends React.Component {
                         style={{backgroundColor: '#5067FF'}}
                         position="bottomRight"
                         onPress={() => this.setState((prevState) => ({
-                                ...prevState,
-                                showFAB: !prevState.showFAB
-                            }))
+                            ...prevState,
+                            showFAB: !prevState.showFAB
+                        }))
                         }
                     >
                         <Icon type="SimpleLineIcons" name="options"/>
-                        <Button style={{backgroundColor: '#34A34F'}}>
-                            <Icon type="MaterialIcons" name="edit"/>
-                        </Button>
-                        <Button style={{backgroundColor: '#3B5998'}}>
-                            <Icon type="MaterialIcons" name="delete"
-                                  onPress={this.handleDelete}
-                            />
-                        </Button>
+                        {
+                         this.state.showFAB ?
+                             <Button style={{backgroundColor: '#34A34F'}}>
+                                <Icon type="MaterialIcons" name="edit"/>
+                            </Button> : null
+                        }
+                        {
+                            this.state.showFAB ?
+                                <Button style={{backgroundColor: '#3B5998'}}>
+                                    <Icon type="MaterialIcons" name="delete"
+                                          onPress={this.handleDelete}/>
+                                </Button> : null
+                        }
+
                     </Fab>
                 </View>
             </View>
