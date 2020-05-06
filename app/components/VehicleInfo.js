@@ -68,7 +68,7 @@ export default class VehicleInfo extends React.Component {
                         </View>
                         <View style={styles.item}>
                             <Text style={styles.label}>PurchaseDate</Text>
-                            <Text style={styles.title}>{moment(vehicle.purchaseDate).format("DD/MM/YYYY")}</Text>
+                            <Text style={styles.title}>{moment(vehicle.purchaseDate).format("MMM DD, YYYY")}</Text>
                         </View>
                     </View>
                     <View style={styles.right}>

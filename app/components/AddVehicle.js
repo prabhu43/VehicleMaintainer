@@ -292,7 +292,7 @@ export default class AddVehicle extends React.Component {
                                 placeHolderText="Select date"
                                 placeHolderTextStyle={{color: "lightgrey"}}
                                 onDateChange={this.handleChange("purchaseDate")}
-                                formatChosenDate={(value)=> moment(value).format("DD/MM/YYYY")}
+                                formatChosenDate={(value)=> moment(value).format("MMM DD, YYYY")}
                             />
                         </Item>
 
