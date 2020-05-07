@@ -16,7 +16,22 @@ export default class VehicleInfo extends React.Component {
             vehicle: realm.objectForPrimaryKey("vehicles", name),
         };
 
+        this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.navigation.addListener("focus", () => {
+            let {name} = this.props.route.params;
+            this.setState({
+                vehicle: realm.objectForPrimaryKey("vehicles", name)
+            });
+        });
+    }
+
+    handleEdit() {
+        console.log("Edit vehicle", this.state.vehicle.name);
+        this.props.navigation.navigate("AddVehicle", {mode: "edit", name: this.state.vehicle.name});
     }
 
     handleDelete() {
@@ -24,6 +39,7 @@ export default class VehicleInfo extends React.Component {
             [
                 {
                     text: 'Confirm', onPress: () => {
+                        console.log("Delete vehicle", this.state.vehicle.name);
                         realm.write(() => {
                             realm.delete(this.state.vehicle)
                         });
@@ -92,7 +108,8 @@ export default class VehicleInfo extends React.Component {
                         {
                          this.state.showFAB ?
                              <Button style={{backgroundColor: '#34A34F'}}>
-                                <Icon type="MaterialIcons" name="edit"/>
+                                <Icon type="MaterialIcons" name="edit"
+                                      onPress={this.handleEdit}/>
                             </Button> : null
                         }
                         {

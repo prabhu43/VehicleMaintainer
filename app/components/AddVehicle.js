@@ -8,8 +8,9 @@ import moment from "moment";
 import {Button, Platform, View, Alert} from "react-native";
 import BikesJSON from "../testdata/bikes.json";
 import CarsJSON from "../testdata/cars.json"
-import {Container, Content, DatePicker, Icon, Input, Item, Label, Picker} from "native-base";
+import {Container, Content, DatePicker, Icon, Input, Item, Label, Picker, Text} from "native-base";
 import Realm from "realm";
+
 let realm;
 
 export default class AddVehicle extends React.Component {
@@ -18,21 +19,50 @@ export default class AddVehicle extends React.Component {
         this.state = {
             vehicleOptions: {
                 types: ["Bike", "Car"],
-                bikes: [],
-                cars: [],
-            },
-            selected: {
-                name: "",
-                type: "",
-                make: "",
-                model: "",
-                variant: "",
-                purchaseDate: "",
+                bikes: BikesJSON,
+                cars: CarsJSON,
             },
             canSubmit: false,
         };
 
-        realm = new Realm({ path: "VehicleMaintainerDB.realm" });
+        realm = new Realm({path: "VehicleMaintainerDB.realm"});
+        let {mode} = props.route.params;
+        switch (mode) {
+            case "create": {
+                console.log("Add new vehicle!!");
+                this.state = {
+                    ...this.state,
+                    selected: {
+                        name: "",
+                        type: "",
+                        make: "",
+                        model: "",
+                        variant: "",
+                        purchaseDate: "",
+                    },
+                    mode: "create",
+                };
+                break;
+            }
+            case "edit": {
+                console.log("Edit existing vehicle!!!");
+                let {name} = props.route.params;
+                let vehicleDetails = realm.objectForPrimaryKey("vehicles", name);
+                this.state = {
+                    ...this.state,
+                    selected: vehicleDetails,
+                    mode: "edit",
+                };
+                break;
+            }
+            default: {
+                console.log("Invalid Mode!! Navigating to home page");
+                props.navigation.navigate("MyVehicles")
+            }
+        }
+
+
+        realm = new Realm({path: "VehicleMaintainerDB.realm"});
 
         this.getMakes = this.getMakes.bind(this);
         this.getModels = this.getModels.bind(this);
@@ -40,17 +70,6 @@ export default class AddVehicle extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    componentDidMount() {
-        this.setState(prevState => ({
-            ...prevState,
-            vehicleOptions: {
-                ...prevState.vehicleOptions,
-                bikes: BikesJSON,
-                cars: CarsJSON
-            }
-        }));
     }
 
     getMakes(type) {
@@ -143,9 +162,6 @@ export default class AddVehicle extends React.Component {
 
     handleChange(name) {
         const executeChange = (value, inputName) => {
-            // if (inputName == "purchaseDate") {
-            //     value = moment(value).format("DD/MM/YYYY")
-            // }
             let newChanges = {
                 [inputName]: value,
             };
@@ -167,14 +183,14 @@ export default class AddVehicle extends React.Component {
                 }
             }
 
-            this.setState(prevState => ({
-                ...prevState,
-                selected: {...prevState.selected, ...newChanges},
-            }), () => {
+            this.setState(prevState => {
+                let prevSelected = JSON.parse(JSON.stringify(prevState.selected));
+                return ({
+                selected: Object.assign(prevSelected, newChanges),
+            })}, () => {
                 let {name, type, make, model, variant, purchaseDate} = this.state.selected;
                 let canSubmit = !!name && !!type && !!make && !!model && !!variant && !!purchaseDate;
                 this.setState(prevState => ({
-                    ...prevState,
                     canSubmit: canSubmit,
                 }));
             });
@@ -186,28 +202,49 @@ export default class AddVehicle extends React.Component {
     }
 
     handleSubmit() {
-        realm.write(() => {
-            realm.create('vehicles', this.state.selected)
-        });
-        let that = this;
-        Alert.alert(
-            'Success',
-            'Your vehicle added successfully',
-            [
-                {
-                    text: 'Ok',
-                    onPress: () => that.props.navigation.navigate("MyVehicles"),
-                },
-            ],
-            { cancelable: false }
-        );
 
+        realm.write(() => {
+            let {mode} = this.state;
+            let that = this;
+            if (mode === "create") {
+                realm.create('vehicles', this.state.selected);
+                Alert.alert(
+                    'Success',
+                    'Your vehicle added successfully',
+                    [
+                        {
+                            text: 'Ok',
+                            onPress: () => that.props.navigation.navigate("MyVehicles"),
+                        },
+                    ],
+                    {cancelable: false}
+                );
+            } else {
+                let vehicleDetails = realm.objectForPrimaryKey("vehicles", this.state.selected.name);
+                let updatedVehicleInfo = Object.assign({},this.state.selected);
+                delete updatedVehicleInfo.name;
+                Object.assign(vehicleDetails, updatedVehicleInfo);
+
+                Alert.alert(
+                    'Success',
+                    'Your vehicle updated successfully',
+                    [
+                        {
+                            text: 'Ok',
+                            onPress: () => that.props.navigation.goBack(),
+                        },
+                    ],
+                    {cancelable: false}
+                );
+
+            }
+        });
 
     }
-    render() {
-        let selected = this.state.selected;
-        return (
 
+    render() {
+        let {selected} = this.state;
+        return (
             <Container>
                 <Content padder>
                     <View>
@@ -217,7 +254,7 @@ export default class AddVehicle extends React.Component {
                                    placeholderTextColor={"lightgrey"}
                                    onChangeText={this.handleChange("name")}
                                    value={selected.name}
-
+                                   editable={this.state.mode === "create"}
                             />
                         </Item>
                         <Item picker>
@@ -244,7 +281,7 @@ export default class AddVehicle extends React.Component {
                                 placeholderIconColor="#007aff"
                                 selectedValue={selected.make}
                                 onValueChange={this.handleChange("make")}
-                                enabled={this.state.selected.type !== ""}
+                                enabled={selected.type !== ""}
                             >
                                 {this.makeOptions()}
                             </Picker>
@@ -260,7 +297,7 @@ export default class AddVehicle extends React.Component {
                                 placeholderIconColor="#007aff"
                                 selectedValue={selected.model}
                                 onValueChange={this.handleChange("model")}
-                                enabled={this.state.selected.make !== ""}
+                                enabled={selected.make !== ""}
                             >
                                 {this.modelOptions()}
                             </Picker>
@@ -276,7 +313,7 @@ export default class AddVehicle extends React.Component {
                                 placeholderIconColor="#007aff"
                                 selectedValue={selected.variant}
                                 onValueChange={this.handleChange("variant")}
-                                enabled={this.state.selected.model !== ""}
+                                enabled={selected.model !== ""}
                             >
                                 {this.variantOptions()}
                             </Picker>
@@ -284,25 +321,24 @@ export default class AddVehicle extends React.Component {
                         <Item>
                             <Label>Purchase Date</Label>
                             <DatePicker
+                                mode={"date"}
+                                defaultDate={this.state.selected.purchaseDate}
                                 minimumDate={new Date(2000, 1, 1)}
                                 maximumDate={new Date()}
                                 modalTransparent={true}
                                 animationType={"fade"}
                                 androidMode={"default"}
-                                placeHolderText="Select date"
+                                placeHolderText={!this.state.selected.purchaseDate?"Select date": null}
                                 placeHolderTextStyle={{color: "lightgrey"}}
                                 onDateChange={this.handleChange("purchaseDate")}
                                 formatChosenDate={(value)=> moment(value).format("MMM DD, YYYY")}
                             />
                         </Item>
-
                         <Button
                             disabled={!this.state.canSubmit}
                             onPress={this.handleSubmit}
                             title="Submit"/>
-
                     </View>
-
                 </Content>
             </Container>
         )

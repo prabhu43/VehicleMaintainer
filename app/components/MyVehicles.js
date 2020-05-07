@@ -43,7 +43,7 @@ export default class MyVehicles extends React.Component {
                         activeOpacity={0.7}
                         style={styles.TouchableOpacityStyle}
                         onPress={() => {
-                            this.props.navigation.navigate("AddVehicle")
+                            this.props.navigation.navigate("AddVehicle", {mode: "create"})
                         }
                         }
                     >
