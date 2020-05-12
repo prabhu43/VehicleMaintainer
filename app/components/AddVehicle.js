@@ -70,8 +70,6 @@ export default class AddVehicle extends React.Component {
       }
     }
 
-    realm = new Realm({path: 'VehicleMaintainerDB.realm'});
-
     this.getMakes = this.getMakes.bind(this);
     this.getModels = this.getModels.bind(this);
     this.getVariants = this.getVariants.bind(this);
