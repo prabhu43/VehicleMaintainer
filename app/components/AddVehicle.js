@@ -5,18 +5,26 @@
 
 import React from 'react';
 import moment from 'moment';
-import {Alert, Button, Platform, StyleSheet, View} from 'react-native';
+import {
+  Alert,
+  Button,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import BikesJSON from '../testdata/bikes.json';
 import CarsJSON from '../testdata/cars.json';
 import {
   Container,
   Content,
-  DatePicker,
   Icon,
   Input,
   Item,
   Label,
   Picker,
+  Text,
 } from 'native-base';
 import Realm from 'realm';
 
@@ -32,6 +40,7 @@ export default class AddVehicle extends React.Component {
         cars: CarsJSON,
       },
       canSubmit: false,
+      showDatePicker: false,
     };
 
     realm = new Realm({path: 'VehicleMaintainerDB.realm'});
@@ -73,6 +82,9 @@ export default class AddVehicle extends React.Component {
     this.getMakes = this.getMakes.bind(this);
     this.getModels = this.getModels.bind(this);
     this.getVariants = this.getVariants.bind(this);
+    this.hideDatePicker = this.hideDatePicker.bind(this);
+    this.showDatePicker = this.showDatePicker.bind(this);
+    this.showPurchaseDate = this.showPurchaseDate.bind(this);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -229,6 +241,9 @@ export default class AddVehicle extends React.Component {
           newChanges.variant = '';
           break;
         }
+        case 'purchaseDate': {
+          this.hideDatePicker();
+        }
       }
 
       this.setState(
@@ -307,6 +322,28 @@ export default class AddVehicle extends React.Component {
     });
   }
 
+  showDatePicker() {
+    this.setState({showDatePicker: true});
+  }
+
+  hideDatePicker() {
+    this.setState({showDatePicker: false});
+  }
+
+  showPurchaseDate() {
+    let purchaseDate = this.state.selected.purchaseDate;
+    if (purchaseDate) {
+      let formattedDate = moment(purchaseDate).format('MMMM DD, YYYY');
+      return <Text testID="PurchaseDate">{formattedDate}</Text>;
+    } else {
+      return (
+        <Text testID="PurchaseDate" style={styles.placeholderStyle}>
+          Select Purchase Date
+        </Text>
+      );
+    }
+  }
+
   render() {
     let {selected} = this.state;
     return (
@@ -382,20 +419,23 @@ export default class AddVehicle extends React.Component {
             </Item>
             <Item>
               <Label>Purchase Date</Label>
-              <DatePicker
+              <TouchableOpacity
+                onPress={this.showDatePicker}
+                style={styles.purchaseDate}>
+                {this.showPurchaseDate()}
+              </TouchableOpacity>
+              <DateTimePickerModal
                 mode={'date'}
-                defaultDate={this.state.selected.purchaseDate}
+                isVisible={this.state.showDatePicker}
+                date={
+                  this.state.selected.purchaseDate
+                    ? this.state.selected.purchaseDate
+                    : new Date()
+                }
                 minimumDate={new Date(2000, 1, 1)}
                 maximumDate={new Date()}
-                modalTransparent={true}
-                animationType={'fade'}
-                androidMode={'default'}
-                placeHolderText={
-                  !this.state.selected.purchaseDate ? 'Select date' : null
-                }
-                placeHolderTextStyle={styles.placeholderStyle}
-                onDateChange={this.handleChange('purchaseDate')}
-                formatChosenDate={value => moment(value).format('MMM DD, YYYY')}
+                onConfirm={this.handleChange('purchaseDate')}
+                onCancel={this.hideDatePicker}
               />
             </Item>
             <Button
@@ -413,5 +453,14 @@ export default class AddVehicle extends React.Component {
 const styles = StyleSheet.create({
   placeholderStyle: {
     color: 'lightgrey',
+  },
+  purchaseDate: {
+    flex: 1,
+    justifyContent: 'center',
+    fontSize: 1,
+    height: 50,
+    paddingLeft: 5,
+    paddingRight: 5,
+    top: 1,
   },
 });

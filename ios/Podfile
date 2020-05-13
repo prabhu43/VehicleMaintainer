@@ -78,7 +78,6 @@ target 'VehicleMaintainer' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
 
-  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
   target 'VehicleMaintainerTests' do
     inherit! :complete
