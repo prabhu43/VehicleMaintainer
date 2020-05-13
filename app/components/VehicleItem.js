@@ -35,9 +35,9 @@ export default class VehicleItem extends React.Component {
         onPress={this.handlePress}>
         <ImageBackground source={bgImage} style={styles.bgImage}>
           <Text style={styles.title}>{vehicleName}</Text>
-          <Text>{vehicle.make} </Text>
-          <Text>{vehicle.model}</Text>
-          <Text>{vehicle.variant}</Text>
+          <Text style={styles.text}>{vehicle.make} </Text>
+          <Text style={styles.text}>{vehicle.model}</Text>
+          <Text style={styles.text}>{vehicle.variant}</Text>
         </ImageBackground>
       </TouchableHighlight>
     );
@@ -53,6 +53,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
+  },
+  text: {
+    fontStyle: 'italic',
   },
   bgImage: {
     flex: 1,
