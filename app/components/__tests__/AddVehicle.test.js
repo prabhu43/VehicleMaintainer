@@ -11,11 +11,11 @@ import renderer from 'react-test-renderer';
 import AddVehicle from '../AddVehicle';
 
 it('renders correctly', () => {
-  let routeParams = { params: { mode: "create"}};
-  const tree = renderer.create(<AddVehicle route={routeParams}/>).toJSON();
-  expect(tree).toMatchSnapshot();
+    let routeParams = {params: {mode: 'create'}};
+    const tree = renderer.create(<AddVehicle route={routeParams} />).toJSON();
+    expect(tree).toMatchSnapshot();
 });
 
 afterAll(() => {
-  Realm.clearTestState();
+    Realm.clearTestState();
 });

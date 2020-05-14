@@ -16,48 +16,48 @@ console.disableYellowBox = true;
 const Stack = createStackNavigator();
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    Realm.open({
-      path: 'VehicleMaintainerDB.realm',
-      schema: [
-        {
-          name: 'vehicles',
-          primaryKey: 'name',
-          properties: {
-            name: 'string',
-            type: 'string',
-            make: 'string',
-            model: 'string',
-            variant: 'string',
-            purchaseDate: 'date',
-          },
-        },
-      ],
-    });
-  }
+    constructor(props) {
+        super(props);
+        Realm.open({
+            path: 'VehicleMaintainerDB.realm',
+            schema: [
+                {
+                    name: 'vehicles',
+                    primaryKey: 'name',
+                    properties: {
+                        name: 'string',
+                        type: 'string',
+                        make: 'string',
+                        model: 'string',
+                        variant: 'string',
+                        purchaseDate: 'date',
+                    },
+                },
+            ],
+        });
+    }
 
-  render() {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName={'MyVehicles'}>
-          <Stack.Screen
-            name="MyVehicles"
-            component={MyVehicles}
-            options={{title: 'My Vehicles'}}
-          />
-          <Stack.Screen
-            name="AddVehicle"
-            component={AddVehicle}
-            options={{title: 'Add Vehicle'}}
-          />
-          <Stack.Screen
-            name="VehicleInfo"
-            component={VehicleInfo}
-            options={({route}) => ({title: route.params.name})}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
+    render() {
+        return (
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName={'MyVehicles'}>
+                    <Stack.Screen
+                        name="MyVehicles"
+                        component={MyVehicles}
+                        options={{title: 'My Vehicles'}}
+                    />
+                    <Stack.Screen
+                        name="AddVehicle"
+                        component={AddVehicle}
+                        options={{title: 'Add Vehicle'}}
+                    />
+                    <Stack.Screen
+                        name="VehicleInfo"
+                        component={VehicleInfo}
+                        options={({route}) => ({title: route.params.name})}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        );
+    }
 }
