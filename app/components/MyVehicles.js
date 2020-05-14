@@ -52,6 +52,7 @@ export default class MyVehicles extends React.Component {
             }
           />
           <TouchableOpacity
+            testID="AddVehicleButton"
             activeOpacity={0.7}
             style={styles.TouchableOpacityStyle}
             onPress={() => {

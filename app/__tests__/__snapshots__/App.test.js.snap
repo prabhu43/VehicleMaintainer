@@ -228,6 +228,7 @@ exports[`renders correctly 1`] = `
                               "width": 50,
                             }
                           }
+                          testID="AddVehicleButton"
                         >
                           <Image
                             source="test-file-stub"

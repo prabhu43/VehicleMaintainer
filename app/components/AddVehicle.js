@@ -353,6 +353,7 @@ export default class AddVehicle extends React.Component {
             <Item>
               <Label>Name</Label>
               <Input
+                testID="VehicleName"
                 placeholder={'Pet name of vehicle'}
                 placeholderTextColor={'lightgrey'}
                 onChangeText={this.handleChange('name')}
@@ -363,9 +364,10 @@ export default class AddVehicle extends React.Component {
             <Item picker>
               <Label>Type</Label>
               <Picker
+                testID="VehicleType"
                 iosIcon={<Icon name="arrow-down" />}
                 style={{width: undefined}}
-                placeholder="Vehicle Type"
+                placeholder="Select Type"
                 placeholderStyle={styles.placeholderStyle}
                 placeholderIconColor="#007aff"
                 selectedValue={selected.type}
@@ -378,7 +380,7 @@ export default class AddVehicle extends React.Component {
               <Picker
                 iosIcon={<Icon name="arrow-down" />}
                 style={{width: undefined}}
-                placeholder="Make"
+                placeholder="Select Make"
                 placeholderStyle={styles.placeholderStyle}
                 placeholderIconColor="#007aff"
                 selectedValue={selected.make}
@@ -393,7 +395,7 @@ export default class AddVehicle extends React.Component {
                 mode="dropdown"
                 iosIcon={<Icon name="arrow-down" />}
                 style={{width: undefined}}
-                placeholder="Model"
+                placeholder="Select Model"
                 placeholderStyle={styles.placeholderStyle}
                 placeholderIconColor="#007aff"
                 selectedValue={selected.model}
@@ -408,7 +410,7 @@ export default class AddVehicle extends React.Component {
                 mode="dropdown"
                 iosIcon={<Icon name="arrow-down" />}
                 style={{width: undefined}}
-                placeholder="Variant"
+                placeholder="Select Variant"
                 placeholderStyle={styles.placeholderStyle}
                 placeholderIconColor="#007aff"
                 selectedValue={selected.variant}
@@ -439,6 +441,7 @@ export default class AddVehicle extends React.Component {
               />
             </Item>
             <Button
+              testID="SubmitButton"
               disabled={!this.state.canSubmit}
               onPress={this.handleSubmit}
               title="Submit"

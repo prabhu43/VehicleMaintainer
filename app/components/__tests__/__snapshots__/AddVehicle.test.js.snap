@@ -120,6 +120,7 @@ exports[`renders correctly 1`] = `
                 "top": 1.5,
               }
             }
+            testID="VehicleName"
             underlineColorAndroid="rgba(0,0,0,0)"
             value=""
           />
@@ -226,7 +227,7 @@ exports[`renders correctly 1`] = `
                 }
                 uppercase={false}
               >
-                Vehicle Type
+                Select Type
               </Text>
               <Text
                 allowFontScaling={false}
@@ -751,7 +752,7 @@ exports[`renders correctly 1`] = `
                 }
                 uppercase={false}
               >
-                Make
+                Select Make
               </Text>
               <Text
                 allowFontScaling={false}
@@ -1080,7 +1081,7 @@ exports[`renders correctly 1`] = `
                 }
                 uppercase={false}
               >
-                Model
+                Select Model
               </Text>
               <Text
                 allowFontScaling={false}
@@ -1409,7 +1410,7 @@ exports[`renders correctly 1`] = `
                 }
                 uppercase={false}
               >
-                Variant
+                Select Variant
               </Text>
               <Text
                 allowFontScaling={false}
@@ -1772,6 +1773,7 @@ exports[`renders correctly 1`] = `
               "opacity": 1,
             }
           }
+          testID="SubmitButton"
         >
           <View
             style={
