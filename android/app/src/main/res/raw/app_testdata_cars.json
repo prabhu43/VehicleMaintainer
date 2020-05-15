@@ -1,0 +1,67 @@
+[
+  {
+    "make": "Hyundai",
+    "models": [
+      {
+        "name": "Aura",
+        "variants": [
+          {
+            "name": "Aura Petrol"
+          },
+          {
+            "name": "Aura Diesel"
+          }
+        ]
+      },
+      {
+        "name": "Creta",
+        "variants": [
+          {
+            "name": "Creta Petrol"
+          },
+          {
+            "name": "Creta Diesel"
+          }
+        ]
+      },
+      {
+        "name": "Grand I10 NIOS",
+        "variants": [
+          {
+            "name": "Grand I10 NIOS Petrol"
+          },
+          {
+            "name": "Grand I10 NIOS Diesel"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "make": "Maruti",
+    "models": [
+      {
+        "name": "Baleno",
+        "variants": [
+          {
+            "name": "Baleno Petrol"
+          },
+          {
+            "name": "Baleno Diesel"
+          }
+        ]
+      },
+      {
+        "name": "Swift",
+        "variants": [
+          {
+            "name": "Swift Petrol"
+          },
+          {
+            "name": "Swift Diesel"
+          }
+        ]
+      }
+    ]
+  }
+]
