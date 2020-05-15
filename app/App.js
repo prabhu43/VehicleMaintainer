@@ -53,7 +53,7 @@ export default class App extends React.Component {
                     <Stack.Screen
                         name="AddVehicle"
                         component={AddVehicle}
-                        options={{title: 'Add Vehicle'}}
+                        options={({route}) => ({title: route.params.title})}
                     />
                     <Stack.Screen
                         name="VehicleInfo"

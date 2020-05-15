@@ -61,6 +61,7 @@ export default class MyVehicles extends React.Component {
                         onPress={() => {
                             this.props.navigation.navigate('AddVehicle', {
                                 mode: 'create',
+                                title: 'Add Vehicle',
                             });
                         }}>
                         <Image

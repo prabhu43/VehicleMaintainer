@@ -32,6 +32,7 @@ export default class VehicleInfo extends React.Component {
     handleEdit() {
         console.log('Edit vehicle', this.state.vehicle.name);
         this.props.navigation.navigate('AddVehicle', {
+            title: 'Edit Vehicle',
             mode: 'edit',
             name: this.state.vehicle.name,
         });
