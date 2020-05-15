@@ -40,7 +40,11 @@ export default class App extends React.Component {
     render() {
         return (
             <NavigationContainer>
-                <Stack.Navigator initialRouteName={'MyVehicles'}>
+                <Stack.Navigator
+                    initialRouteName={'MyVehicles'}
+                    screenOptions={{
+                        headerTitleAlign: 'center',
+                    }}>
                     <Stack.Screen
                         name="MyVehicles"
                         component={MyVehicles}
