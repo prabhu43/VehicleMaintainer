@@ -84,6 +84,14 @@
           "type": "iPhone 11 Pro"
         }
       },
+      "ios.sim.release": {
+        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/VehicleMaintainer.app",
+        "build": "xcodebuild -project ios/VehicleMaintainer.xcworkspace -scheme VehicleMaintainer -configuration Release -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "device": {
+          "type": "iPhone 11 Pro"
+        }
+      },
       "android.emu.debug": {
         "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
         "build": "cd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd ..",
