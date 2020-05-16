@@ -7,6 +7,7 @@ import React from 'react';
 import {ImageBackground, StyleSheet, TouchableHighlight} from 'react-native';
 import {Text} from 'native-base';
 import Images from '@assets/images';
+import Colors from '../common/colors';
 
 export default class VehicleItem extends React.Component {
     constructor(props) {
@@ -45,21 +46,21 @@ export default class VehicleItem extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    item: {
-        backgroundColor: 'lightblue',
-        padding: 15,
-        marginVertical: 8,
-        marginHorizontal: 16,
+    bgImage: {
+        flex: 1,
+        justifyContent: 'center',
+        resizeMode: 'cover',
     },
-    title: {
-        fontSize: 24,
+    item: {
+        backgroundColor: Colors.lightblue,
+        marginHorizontal: 16,
+        marginVertical: 8,
+        padding: 15,
     },
     text: {
         fontStyle: 'italic',
     },
-    bgImage: {
-        flex: 1,
-        resizeMode: 'cover',
-        justifyContent: 'center',
+    title: {
+        fontSize: 24,
     },
 });

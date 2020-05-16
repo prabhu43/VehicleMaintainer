@@ -27,6 +27,7 @@ import {
     Text,
 } from 'native-base';
 import Realm from 'realm';
+import Colors from '../common/colors';
 
 let realm;
 
@@ -370,7 +371,9 @@ export default class AddVehicle extends React.Component {
                 <Content padder>
                     <View>
                         <Item>
-                            <Label>Name</Label>
+                            <Label>
+                                <Text>Name</Text>
+                            </Label>
                             <Input
                                 testID="VehicleName"
                                 placeholder={'Pet name of vehicle'}
@@ -381,7 +384,9 @@ export default class AddVehicle extends React.Component {
                             />
                         </Item>
                         <Item picker>
-                            <Label>Type</Label>
+                            <Label>
+                                <Text>Type</Text>
+                            </Label>
                             <Picker
                                 testID="VehicleType"
                                 iosIcon={<Icon name="arrow-down" />}
@@ -395,7 +400,9 @@ export default class AddVehicle extends React.Component {
                             </Picker>
                         </Item>
                         <Item picker>
-                            <Label>Make</Label>
+                            <Label>
+                                <Text>Make</Text>
+                            </Label>
                             <Picker
                                 iosIcon={<Icon name="arrow-down" />}
                                 style={{width: undefined}}
@@ -409,7 +416,9 @@ export default class AddVehicle extends React.Component {
                             </Picker>
                         </Item>
                         <Item picker>
-                            <Label>Model</Label>
+                            <Label>
+                                <Text>Model</Text>
+                            </Label>
                             <Picker
                                 mode="dropdown"
                                 iosIcon={<Icon name="arrow-down" />}
@@ -424,7 +433,9 @@ export default class AddVehicle extends React.Component {
                             </Picker>
                         </Item>
                         <Item picker>
-                            <Label>Variant</Label>
+                            <Label>
+                                <Text>Variant</Text>
+                            </Label>
                             <View testID="Variant">
                                 <Picker
                                     testID="SelectVariant"
@@ -442,7 +453,9 @@ export default class AddVehicle extends React.Component {
                             </View>
                         </Item>
                         <Item>
-                            <Label>Purchase Date</Label>
+                            <Label>
+                                <Text>Purchase Date</Text>
+                            </Label>
                             <TouchableOpacity
                                 onPress={this.showDatePicker}
                                 style={styles.purchaseDate}>
@@ -477,13 +490,13 @@ export default class AddVehicle extends React.Component {
 
 const styles = StyleSheet.create({
     placeholderStyle: {
-        color: 'lightgrey',
+        color: Colors.lightgrey,
     },
     purchaseDate: {
         flex: 1,
-        justifyContent: 'center',
         fontSize: 1,
         height: 50,
+        justifyContent: 'center',
         paddingLeft: 5,
         paddingRight: 5,
         top: 1,

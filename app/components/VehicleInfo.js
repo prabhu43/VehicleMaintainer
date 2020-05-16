@@ -3,6 +3,7 @@ import Realm from 'realm';
 import {ImageBackground, StyleSheet, View, Alert} from 'react-native';
 import {Text, Fab, Icon, Button} from 'native-base';
 import Images from '@assets/images';
+import Colors from '../common/colors';
 import moment from 'moment';
 
 let realm;
@@ -155,25 +156,19 @@ export default class VehicleInfo extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    page: {
-        flex: 1,
-    },
     bottomSection: {
         flex: 1,
     },
+    deleteButton: {backgroundColor: Colors.darkblue},
+    editButton: {backgroundColor: Colors.green},
+    fab: {backgroundColor: Colors.mediumblue},
     info: {
-        backgroundColor: 'lightblue',
-        padding: 10,
+        backgroundColor: Colors.lightblue,
         borderRadius: 40,
-        marginVertical: 12,
-        marginHorizontal: 12,
         flexDirection: 'row',
-    },
-    left: {
-        width: '65%',
-    },
-    right: {
-        justifyContent: 'center',
+        marginHorizontal: 12,
+        marginVertical: 12,
+        padding: 10,
     },
     item: {
         padding: 10,
@@ -182,16 +177,22 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontStyle: 'italic',
     },
+    left: {
+        width: '65%',
+    },
+    page: {
+        flex: 1,
+    },
+    right: {
+        justifyContent: 'center',
+    },
     title: {
         fontSize: 20,
     },
     vehicleImage: {
-        backgroundColor: '#03b1fc',
+        backgroundColor: Colors.cyan,
         borderRadius: 60,
-        width: 120,
         height: 120,
+        width: 120,
     },
-    fab: {backgroundColor: '#5067FF'},
-    editButton: {backgroundColor: '#34A34F'},
-    deleteButton: {backgroundColor: '#3B5998'},
 });

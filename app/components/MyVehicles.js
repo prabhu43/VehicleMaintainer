@@ -57,7 +57,7 @@ export default class MyVehicles extends React.Component {
                     <TouchableOpacity
                         testID="AddVehicleButton"
                         activeOpacity={0.7}
-                        style={styles.TouchableOpacityStyle}
+                        style={styles.touchableOpacityStyle}
                         onPress={() => {
                             this.props.navigation.navigate('AddVehicle', {
                                 mode: 'create',
@@ -66,7 +66,7 @@ export default class MyVehicles extends React.Component {
                         }}>
                         <Image
                             source={Images.plusIcon}
-                            style={styles.FloatingButtonStyle}
+                            style={styles.floatingButtonStyle}
                         />
                     </TouchableOpacity>
                 </SafeAreaView>
@@ -79,19 +79,18 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    TouchableOpacityStyle: {
-        position: 'absolute',
-        width: 50,
+    floatingButtonStyle: {
         height: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        right: 30,
-        bottom: 30,
-    },
-
-    FloatingButtonStyle: {
         resizeMode: 'contain',
         width: 50,
+    },
+    touchableOpacityStyle: {
+        alignItems: 'center',
+        bottom: 30,
         height: 50,
+        justifyContent: 'center',
+        position: 'absolute',
+        right: 30,
+        width: 50,
     },
 });
