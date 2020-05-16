@@ -425,18 +425,21 @@ export default class AddVehicle extends React.Component {
                         </Item>
                         <Item picker>
                             <Label>Variant</Label>
-                            <Picker
-                                mode="dropdown"
-                                iosIcon={<Icon name="arrow-down" />}
-                                style={{width: undefined}}
-                                placeholder="Select Variant"
-                                placeholderStyle={styles.placeholderStyle}
-                                placeholderIconColor="#007aff"
-                                selectedValue={selected.variant}
-                                onValueChange={this.handleChange('variant')}
-                                enabled={selected.model !== ''}>
-                                {this.variantOptions()}
-                            </Picker>
+                            <View testID="Variant">
+                                <Picker
+                                    testID="SelectVariant"
+                                    mode="dropdown"
+                                    iosIcon={<Icon name="arrow-down" />}
+                                    style={{width: undefined}}
+                                    placeholder="Select Variant"
+                                    placeholderStyle={styles.placeholderStyle}
+                                    placeholderIconColor="#007aff"
+                                    selectedValue={selected.variant}
+                                    onValueChange={this.handleChange('variant')}
+                                    enabled={selected.model !== ''}>
+                                    {this.variantOptions()}
+                                </Picker>
+                            </View>
                         </Item>
                         <Item>
                             <Label>Purchase Date</Label>

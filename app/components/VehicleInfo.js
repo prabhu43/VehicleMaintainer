@@ -24,6 +24,7 @@ export default class VehicleInfo extends React.Component {
         this.props.navigation.addListener('focus', () => {
             let {name} = this.props.route.params;
             this.setState({
+                showFAB: false,
                 vehicle: realm.objectForPrimaryKey('vehicles', name),
             });
         });
@@ -76,21 +77,27 @@ export default class VehicleInfo extends React.Component {
                     <View style={styles.left}>
                         <View style={styles.item}>
                             <Text style={styles.label}>Make</Text>
-                            <Text style={styles.title}>{vehicle.make}</Text>
+                            <Text style={styles.title} testID="make">
+                                {vehicle.make}
+                            </Text>
                         </View>
                         <View style={styles.item}>
                             <Text style={styles.label}>Model</Text>
-                            <Text style={styles.title}>{vehicle.model}</Text>
+                            <Text style={styles.title} testID="model">
+                                {vehicle.model}
+                            </Text>
                         </View>
                         <View style={styles.item}>
                             <Text style={styles.label}>Variant</Text>
-                            <Text style={styles.title}>{vehicle.variant}</Text>
+                            <Text style={styles.title} testID="variant">
+                                {vehicle.variant}
+                            </Text>
                         </View>
                         <View style={styles.item}>
                             <Text style={styles.label}>PurchaseDate</Text>
-                            <Text style={styles.title}>
+                            <Text style={styles.title} testID="purchaseDate">
                                 {moment(vehicle.purchaseDate).format(
-                                    'MMM DD, YYYY',
+                                    'MMMM DD, YYYY',
                                 )}
                             </Text>
                         </View>
@@ -115,12 +122,17 @@ export default class VehicleInfo extends React.Component {
                                 showFAB: !prevState.showFAB,
                             }))
                         }>
-                        <Icon type="SimpleLineIcons" name="options" />
+                        <Icon
+                            type="SimpleLineIcons"
+                            name="options"
+                            testID="options"
+                        />
                         {this.state.showFAB ? (
                             <Button style={styles.editButton}>
                                 <Icon
                                     type="MaterialIcons"
                                     name="edit"
+                                    testID="editVehicle"
                                     onPress={this.handleEdit}
                                 />
                             </Button>
@@ -130,6 +142,7 @@ export default class VehicleInfo extends React.Component {
                                 <Icon
                                     type="MaterialIcons"
                                     name="delete"
+                                    testID="deleteVehicle"
                                     onPress={this.handleDelete}
                                 />
                             </Button>
