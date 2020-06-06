@@ -1,4 +1,5 @@
 language: objective-c
+os: osx
 osx_image: xcode11.4
 
 branches:
@@ -20,6 +21,7 @@ install:
 
 - npm install -g react-native-cli
 - npm install -g detox-cli
+- npm install
 
 script:
 - detox build --configuration ios.sim.release
